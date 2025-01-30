@@ -54,3 +54,7 @@ export const getBooks =()=>{
 export const getBook = (number) => {
   return books.find((book) => book.id == number);
 };
+export const deleteBook=(number)=>{
+ return books=books.filter((book)=>
+  book.id!==number)
+}

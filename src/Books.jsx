@@ -1,13 +1,15 @@
-import { Outlet, NavLink, useSearchParams } from "react-router-dom";  
+import { Outlet, NavLink, useSearchParams,useLocation } from "react-router-dom";  
 import { getBooks } from "./data/Data";  
 
 const Books = () => {  
   let books = getBooks();  
   let [searchParams, setSearchParams] = useSearchParams();  
+  let location =useLocation()
   
   return (  
     <div style={{ display: "grid", gridTemplateColumns: "2fr 2fr", gap: "60px" }}>  
       <div style={{ display: "flex", flexDirection: "column", marginRight: "20px" }}>  
+        
         <input type="text"  
           value={searchParams.get("filter") || ""}  
           onChange={(event) => {  
@@ -29,7 +31,7 @@ const Books = () => {
             })  
             .map((book) => (  
               <NavLink  
-                to={book.id}  
+                to={`${book.id}${location.search}`}  
                 key={book.id}  
                 style={({ isActive }) => ({  
                   color: isActive ? "red" : "",  
@@ -39,7 +41,8 @@ const Books = () => {
               >  
                 {book.name}  
               </NavLink>  
-            ))  
+            )) 
+             
         }  
       </div>  
       <Outlet />  
